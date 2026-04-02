@@ -183,7 +183,7 @@ Business love pipelines because it improves:
 ----
 # move this: Ansible 
 
-* configuration managment tool 
+~* configuration managment tool 
   
 
 Ansible controller \
@@ -198,7 +198,7 @@ Ansible controller \
 ansible allows us to group those \
 say we've got app (na) running on 10 instances\
 say we wanna do a nodejs update on all of those ansible allows us to do that\
-all at the same time instead of one by one 
+all at the same time instead of one by one ~
 
 
 
@@ -216,3 +216,6 @@ with max # = 3
 
 build steps, execute shell, `uname -a` 
 
+
+
+--- changes test
