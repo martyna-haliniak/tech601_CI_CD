@@ -8,6 +8,7 @@
     - [Continuous Delivery (CD)](#continuous-delivery-cd)
     - [Continuous Deployment (CDE)](#continuous-deployment-cde)
     - [Difference between CD (Delivery) and CDE (Deployment)](#difference-between-cd-delivery-and-cde-deployment)
+  - [CI/CD Diagram](#cicd-diagram)
   - [Jenkins](#jenkins)
     - [What is Jenkins](#what-is-jenkins)
     - [Why use Jenkins?](#why-use-jenkins)
@@ -16,6 +17,9 @@
     - [Stages in a Jenskins CI/CD Pipeline](#stages-in-a-jenskins-cicd-pipeline)
       - [What is an artifact](#what-is-an-artifact)
     - [Alternative](#alternative)
+  - [Why Build a Pipeline? Business Value](#why-build-a-pipeline-business-value)
+- [move this: Ansible](#move-this-ansible)
+        - [JENKINS](#jenkins-1)
 
 
 ## CI: Continuous Integration
@@ -65,7 +69,8 @@ Deployment - automatically released
 
 
 
-
+## CI/CD Diagram 
+![](CICD_diagram.png)
 
 
 
@@ -129,7 +134,22 @@ Jenkins is an open-source **automation server** used for CI/CD pipelines.
 
 
 #### What is an artifact
+An **artifact** is the final output of your build.
 
+Examples:
+
+* `.jar`, `.war` files
+* Docker image
+* `.zip` deploy package
+* Compiled code
+* Python wheel
+* Front-end build folder
+
+Artifacts are stored in:
+
+* Artifact repositories (Artifactory, Nexus)
+* S3 buckets
+* Docker registries
 
 
 ### Alternative
@@ -137,3 +157,62 @@ Jenkins is an open-source **automation server** used for CI/CD pipelines.
 * GitHub Actions (most popular)
 * GitLab Cl
 * Azure Devops Pipelines
+* CircleCI
+* Travis CI
+* Bitbucket Pipelines
+* ArgoCD (Kubernetes GitOps style)
+* Tekton Pipelines
+
+
+## Why Build a Pipeline? Business Value
+* Automation reduces manual work
+* Faster and more reliable releases
+* Fewer bugs reaching production
+* Shorter development cycles
+* Happier developers
+* Consistent, repeatable deployments
+* Higher product stability and customer trust
+
+Business love pipelines because it improves:
+
+* Speed
+* Quality
+* Reliability
+* Cost efficiency
+
+----
+# move this: Ansible 
+
+* configuration managment tool 
+  
+
+Ansible controller \
+  hosts \
+    - app (na)\
+    - same\
+    -db (na)\
+    - app (eu)\
+    - same\
+    - db (eu)
+
+ansible allows us to group those \
+say we've got app (na) running on 10 instances\
+say we wanna do a nodejs update on all of those ansible allows us to do that\
+all at the same time instead of one by one 
+
+
+
+
+##### JENKINS
+
+new item , pick freestyle project
+
+first job
+
+ALWAYS tick discard old builds 
+
+with max # = 3
+
+
+build steps, execute shell, `uname -a` 
+
