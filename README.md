@@ -20,6 +20,11 @@
   - [Why Build a Pipeline? Business Value](#why-build-a-pipeline-business-value)
 - [move this: Ansible](#move-this-ansible)
         - [JENKINS](#jenkins-1)
+  - [Sparta App](#sparta-app)
+    - [Diagram](#diagram)
+    - [Job 1 - Test](#job-1---test)
+      - [Next step: set up webhook](#next-step-set-up-webhook)
+      - [End of day](#end-of-day)
 
 
 ## CI: Continuous Integration
@@ -221,3 +226,109 @@ build steps, execute shell, `uname -a`
 --- changes tests
 
 - final test
+
+
+
+## Sparta App 
+
+### Diagram 
+
+---
+
+### Job 1 - Test
+
+Same setup as before 
+
+Used max of builds = 5 instead
+
+Tick GitHub project
+
+Repo https link (SSH already set up)
+
+
+Remove the .git from link:
+
+![alt text](image.png)
+
+Replace with '/':
+
+![alt text](image-1.png)
+
+
+Source Code management: select 'Git'
+
+In this section paste in the SSH link to repo. 
+
+Add the .pem key:
+
+![git ssh window](git-ssh.png)
+
+click add
+
+![git ssh 2](git-ssh2.png)
+
+paste private key (include the top nd bottom lines)
+
+![git ssh 3](git-ssh3.png)
+
+
+then select the key we just added in credentials.
+
+
+Change branch from master to main:
+
+![alt text](image-2.png)
+
+
+Then in Build Environment tick 'Provide Node & npm bin/folder to PATH'
+
+![alt text](image-3.png)
+
+
+Finally:
+
+![alt text](image-4.png)
+
+(rearrange folder structure to get rid of the `cd sparta-app`)
+
+
+
+Save
+
+Then run it, go on the build, console output, see what's happening as it runs. 
+
+
+works without webhook 
+
+#### Next step: set up webhook
+
+Job 1 is the only one that needs webhook set up.
+
+**Part 1 : GitHub repo now listenning for the webhook**
+
+github repo -> settings -> webhooks -> Add webhook
+
+Paylod URL: 
+- Paste the jenkins link (server public ip:8080), add `/github-webhook` at the end
+  ![alt text](image-5.png)
+
+Leave everything else as default
+
+
+**Part 2 : Jenkins listening for the webhook**
+
+
+Job -> Configure 
+
+Under Build Triggers tick
+
+'GitHub hook trigger for GITScm polling'
+
+
+
+
+
+
+
+#### End of day 
+Before stoping server 1 jenkins instance, delete EC2 agents from jenkins ui (will show up as unnamed running instance on aws)
