@@ -24,6 +24,7 @@
     - [Diagram](#diagram)
     - [Job 1 - Test](#job-1---test)
       - [Next step: set up webhook](#next-step-set-up-webhook)
+    - [Job 2 - merge to main](#job-2---merge-to-main)
       - [End of day](#end-of-day)
 
 
@@ -325,6 +326,29 @@ Under Build Triggers tick
 'GitHub hook trigger for GITScm polling'
 
 
+Change branch from main to dev.
+
+
+
+Now we need to make a dev branch.
+
+
+`git branch dev`
+
+`git switch dev`
+
+
+make a change and push to dev
+`git push --set-upstream origin dev`
+
+
+this triggers Job 1.
+
+
+### Job 2 - merge to main 
+
+
+test change
 
 
 
