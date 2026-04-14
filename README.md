@@ -389,7 +389,11 @@ When pushing to dev job 1 triggered, if successful job 2 triggered to merge and 
 
 ### Job 3 - Deploy to EC2
 
+Add AWS credentials.
 
+* Manage jenkins -> Credentials -> Add
+
+* ![alt text](image-6.png)
 
 
 #### End of day 
