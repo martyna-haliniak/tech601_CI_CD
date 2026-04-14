@@ -398,3 +398,7 @@ Add AWS credentials.
 
 #### End of day 
 Before stoping server 1 jenkins instance, delete EC2 agents from jenkins ui (will show up as unnamed running instance on aws)
+
+
+
+test change
