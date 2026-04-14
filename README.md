@@ -25,6 +25,7 @@
     - [Job 1 - Test](#job-1---test)
       - [Next step: set up webhook](#next-step-set-up-webhook)
     - [Job 2 - merge to main](#job-2---merge-to-main)
+    - [Job 3 - Deploy to EC2](#job-3---deploy-to-ec2)
       - [End of day](#end-of-day)
 
 
@@ -347,9 +348,46 @@ this triggers Job 1.
 
 ### Job 2 - merge to main 
 
+Create a new job called 
 
-test change 2
+`martyna-job2-ci-merge`
 
+
+Configuration:
+
+Same as before:
+* Discard builds 5
+* GitHub project (https link)
+* Source code management: Git 
+  * SSH link
+  * github key
+  * branch */dev
+  
+Then:
+* Build trigger
+  * Build after other projects are build 
+  * Project to watch: `martyna-job1-ci-test`
+  * Trigger only if build is stable
+
+* Build Environment
+  * tick 'SSH agent'
+  * github key 
+
+* Build Steps 
+  ```bash
+  git checkout main
+  git pull origin main
+  git merge origin/dev
+  git push origin main  
+  ```
+
+Done
+
+When pushing to dev job 1 triggered, if successful job 2 triggered to merge and push to main. 
+
+
+
+### Job 3 - Deploy to EC2
 
 
 
