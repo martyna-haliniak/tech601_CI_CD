@@ -9,23 +9,24 @@
     - [Continuous Deployment (CDE)](#continuous-deployment-cde)
     - [Difference between CD (Delivery) and CDE (Deployment)](#difference-between-cd-delivery-and-cde-deployment)
   - [CI/CD Diagram](#cicd-diagram)
-  - [Jenkins](#jenkins)
-    - [What is Jenkins](#what-is-jenkins)
-    - [Why use Jenkins?](#why-use-jenkins)
-      - [Benefits](#benefits-1)
-      - [Disadvantages](#disadvantages)
-    - [Stages in a Jenskins CI/CD Pipeline](#stages-in-a-jenskins-cicd-pipeline)
-      - [What is an artifact](#what-is-an-artifact)
-    - [Alternative](#alternative)
+- [Jenkins](#jenkins)
+  - [What is Jenkins](#what-is-jenkins)
+  - [Why use Jenkins?](#why-use-jenkins)
+    - [Benefits](#benefits-1)
+    - [Disadvantages](#disadvantages)
+  - [Stages in a Jenskins CI/CD Pipeline](#stages-in-a-jenskins-cicd-pipeline)
+    - [What is an artifact](#what-is-an-artifact)
+  - [Alternatives](#alternatives)
   - [Why Build a Pipeline? Business Value](#why-build-a-pipeline-business-value)
-- [move this: Ansible](#move-this-ansible)
-        - [JENKINS](#jenkins-1)
-  - [Sparta App](#sparta-app)
-    - [Diagram](#diagram)
-    - [Job 1 - Test](#job-1---test)
-      - [Next step: set up webhook](#next-step-set-up-webhook)
+- [Sparta App CI/CD Pipeline (Jenkins + AWS EC2)](#sparta-app-cicd-pipeline-jenkins--aws-ec2)
+  - [CI/CD Pipeline Diagram](#cicd-pipeline-diagram)
+  - [Overview](#overview)
+  - [Get onto Jenkins](#get-onto-jenkins)
+  - [Job 1 - CI Testing Pipeline](#job-1---ci-testing-pipeline)
+    - [Next step: set up webhook](#next-step-set-up-webhook)
     - [Job 2 - merge to main](#job-2---merge-to-main)
     - [Job 3 - Deploy to EC2](#job-3---deploy-to-ec2)
+  - [Test CI/CD pipeline](#test-cicd-pipeline)
       - [End of day](#end-of-day)
 
 
@@ -77,14 +78,14 @@ Deployment - automatically released
 
 
 ## CI/CD Diagram 
-![](CICD_diagram.png)
+![](images/CICD_diagram.png)
 
 
 
 
-## Jenkins
+# Jenkins
 
-### What is Jenkins
+## What is Jenkins
 
 Jenkins is an open-source **automation server** used for CI/CD pipelines.
 
@@ -97,9 +98,9 @@ Jenkins is an open-source **automation server** used for CI/CD pipelines.
 
 
 
-### Why use Jenkins?
+## Why use Jenkins?
 
-#### Benefits
+### Benefits
 
 * **Open source & free**
 * **Highly customisable**
@@ -109,7 +110,7 @@ Jenkins is an open-source **automation server** used for CI/CD pipelines.
 * **Integrates with anything**
 
 
-#### Disadvantages
+### Disadvantages
 
 * High maintenance (plugins break, updates needed)
 * Old-fashioned UI
@@ -119,7 +120,7 @@ Jenkins is an open-source **automation server** used for CI/CD pipelines.
 
 
 
-### Stages in a Jenskins CI/CD Pipeline
+## Stages in a Jenskins CI/CD Pipeline
 
 1. **SCM (Source Code Management)** \
     Pull code from GitHub, GitLab, Bitbucket etc.
@@ -140,7 +141,7 @@ Jenkins is an open-source **automation server** used for CI/CD pipelines.
     Health checks, logging, alerts
 
 
-#### What is an artifact
+### What is an artifact
 An **artifact** is the final output of your build.
 
 Examples:
@@ -159,89 +160,79 @@ Artifacts are stored in:
 * Docker registries
 
 
-### Alternative
-
-* GitHub Actions (most popular)
-* GitLab Cl
-* Azure Devops Pipelines
-* CircleCI
-* Travis CI
-* Bitbucket Pipelines
-* ArgoCD (Kubernetes GitOps style)
-* Tekton Pipelines
+## Alternatives
+  * GitHub Actions (most popular)
+  * GitLab Cl
+  * Azure Devops Pipelines
+  * CircleCI
+  * Travis CI
+  * Bitbucket Pipelines
+  * ArgoCD (Kubernetes GitOps style)
+  * Tekton Pipelines
 
 
 ## Why Build a Pipeline? Business Value
-* Automation reduces manual work
-* Faster and more reliable releases
-* Fewer bugs reaching production
-* Shorter development cycles
-* Happier developers
-* Consistent, repeatable deployments
-* Higher product stability and customer trust
-
-Business love pipelines because it improves:
-
-* Speed
-* Quality
-* Reliability
-* Cost efficiency
-
-----
-# move this: Ansible 
-
-~* configuration managment tool 
+  * Automation reduces manual work
+  * Faster and more reliable releases
+  * Fewer bugs reaching production
+  * Shorter development cycles
+  * Happier developers
+  * Consistent, repeatable deployments
+  * Higher product stability and customer trust
   
 
-Ansible controller \
-  hosts \
-    - app (na)\
-    - same\
-    -db (na)\
-    - app (eu)\
-    - same\
-    - db (eu)
+Pipelines improve: 
+  * Speed
+  * Quality
+  * Reliability
+  * Cost efficiency
 
-ansible allows us to group those \
-say we've got app (na) running on 10 instances\
-say we wanna do a nodejs update on all of those ansible allows us to do that\
-all at the same time instead of one by one ~
+
+----
 
 
 
 
-##### JENKINS
-
-new item , pick freestyle project
-
-first job
-
-ALWAYS tick discard old builds 
-
-with max # = 3
-
-
-build steps, execute shell, `uname -a` 
 
 
 
---- changes tests
-
-- final test
 
 
+# Sparta App CI/CD Pipeline (Jenkins + AWS EC2)
 
-## Sparta App 
 
-### Diagram 
+## CI/CD Pipeline Diagram 
 
 ---
 
-### Job 1 - Test
+## Overview 
+Create a 3-job Jenkins pipeline to deploy Sparta test app.
 
-Same setup as before 
+This pipeline automatically:
+1. Tests code (Job 1)
+2. Merges code from dev → main (Job 2)
+3. Deploys the application to EC2 (Job 3)
 
-Used max of builds = 5 instead
+Using:
+- GitHub for version control
+- Jenkins for automation (CI + CD)
+- AWS EC2 for application hosting
+
+
+
+## Get onto Jenkins
+- Server 1 instance on AWS
+- open <public ip>:8080
+- login details provided
+
+## Job 1 - CI Testing Pipeline
+
+New Item:
+* Freestyle project
+* name: `martyna-job1-ci-test`
+
+
+ max of builds = 5
 
 Tick GitHub project
 
@@ -250,11 +241,11 @@ Repo https link (SSH already set up)
 
 Remove the .git from link:
 
-![alt text](image.png)
+![github https link with .git highlighted](images/repo_https_with_git.png)
 
 Replace with '/':
 
-![alt text](image-1.png)
+![github https .git -> /](images/repo_https_no_git.png)
 
 
 Source Code management: select 'Git'
@@ -263,15 +254,15 @@ In this section paste in the SSH link to repo.
 
 Add the .pem key:
 
-![git ssh window](git-ssh.png)
+![source code management git window](images/scm_git_ssh.png)
 
 click add
 
-![git ssh 2](git-ssh2.png)
+![jenkins credentials provider - add credentials window](images/scm_add_credentials.png)
 
 paste private key (include the top nd bottom lines)
 
-![git ssh 3](git-ssh3.png)
+![add credentials continued - private key](images/scm_add_credentials_private_key.png)
 
 
 then select the key we just added in credentials.
@@ -279,17 +270,17 @@ then select the key we just added in credentials.
 
 Change branch from master to main:
 
-![alt text](image-2.png)
+![branch specified window with */main](images/branches_to_build.png)
 
 
 Then in Build Environment tick 'Provide Node & npm bin/folder to PATH'
 
-![alt text](image-3.png)
+![build env window with nodejs version specified](images/build_env_nodejs.png)
 
 
 Finally:
 
-![alt text](image-4.png)
+![build steps execute shell - cd app, npm install & test](images/build_steps_tests.png)
 
 (rearrange folder structure to get rid of the `cd sparta-app`)
 
@@ -302,7 +293,7 @@ Then run it, go on the build, console output, see what's happening as it runs.
 
 works without webhook 
 
-#### Next step: set up webhook
+### Next step: set up webhook
 
 Job 1 is the only one that needs webhook set up.
 
@@ -311,8 +302,8 @@ Job 1 is the only one that needs webhook set up.
 github repo -> settings -> webhooks -> Add webhook
 
 Paylod URL: 
-- Paste the jenkins link (server public ip:8080), add `/github-webhook` at the end
-  ![alt text](image-5.png)
+- Paste the jenkins link (server public ip:8080), add `/github-webhook/` at the end
+  ![payload url github window with /gthub-webhook/ added](images/github_webhook.png)
 
 Leave everything else as default
 
@@ -389,17 +380,92 @@ When pushing to dev job 1 triggered, if successful job 2 triggered to merge and 
 
 ### Job 3 - Deploy to EC2
 
-Add AWS credentials.
+**Step 1: Add SSH credentials (EC2 key pair) to Jenkins**
 
-* Manage jenkins -> Credentials -> Add
+  * Manage jenkins -> Credentials -> System -> Global -> Add Credentials
+  * Add EC2 `.pem` private key
+    ![add credentials window](images/add_credentials_ec2.png)
+  * This allows Jenkins to SSH into the EC2 instance using the SSH Agent plugin.
 
-* ![alt text](image-6.png)
+
+**Step 2: Create an EC2 instance**
+- Name: `tech601-martyna-jenkins-app`
+- OS: Ubuntu 22.04 LTS
+- Security Group Rules:
+  - SSH (22): allow Jenkins or your IP
+  - HTTP (3000): allow `0.0.0.0/0`
+
+* EC2 One-Tiem Setup
+  
+SSH into the EC2 instance and install dependencies:
+  ```bash
+  sudo apt update -y
+  sudo apt upgrade -y
+  curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+  sudo apt install -y nodejs
+  sudo npm install -g pm2
+  ```
+Verify installation:
+  ```bash
+  node -v
+  pm2 -v
+  ```
+Research if this is the best way of doing this, other options:
+- Launch new EC2 from image of this one and use it instead
+- Include installations in Build Steps -> Execute Shell on Jenkins (this would run it every time though)
+
+
+**Step 3: New job on Jenkins**
+  * Job name: `martyna-job3-cd-deploy`
+  * Max builds kept: 5
+  * Project URL (https link with `.git` -> `/`)
+  * Source Code Management set up as before with branch: `*/main`
+  * Build Triggers -> Build after other projects are built
+    * Projects to watch: `martyna-job2-ci-merge`
+    * Trigger only if build is stable
+  * Build Environment -> SSH Agent
+    * Select EC2 SSH private key credentials (note: comes up as the description instead of name we gave it)
+  * Build Steps -> Execute Shell
+    * Paste:
+      ```bash
+      # copy files from Jenkins to EC2
+      scp -o StrictHostKeyChecking=no -r app ubuntu@34.241.187.151:/home/ubuntu/
+
+      # SSH into EC2 and run app
+      ssh -o StrictHostKeyChecking=no ubuntu@34.241.187.151 << EOF
+
+      cd /home/ubuntu/app
+
+      npm install
+
+      pm2 stop app || true
+      pm2 delete app || true
+
+      pm2 start app.js --name app
+      pm2 save
+
+      EOF
+      ```
+  * Save
+
+
+Push to dev branch. 
+This triggers Job 1 -> Job 2 -> Job 3.
+If successful code pushed to main and `http://34.241.187.151:3000/` displays the Spata app frontpage. 
+
+
+## Test CI/CD pipeline 
+
+* Locally update the [app/views/index.ejs](C:\Users\marty\Documents\SpartaGlobal\Devops\Training\github\tech601_CI_CD\app\views\index.ejs) file:
+  * Add
+    ```html
+    <h3>CI/CD CHANGE 2 - 14th April 2026 14:48</h3>
+    ```
+  * Commit changes and push to dev
+  * Jenkins Jobs successful, the line displays on web frontpage.
+
 
 
 #### End of day 
 Before stoping server 1 jenkins instance, delete EC2 agents from jenkins ui (will show up as unnamed running instance on aws)
 
-
-
-test change
-test changer
