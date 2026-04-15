@@ -266,11 +266,17 @@ Create a new **Freestyle Project**:\
 
 * **Source Code Management**
   * Git repository (SSH)
+
     ![source code management git window](images/scm_git_ssh.png)
+
   * Add GitHub SSH private key credentials
+
     ![jenkins credentials provider - add credentials window](images/scm_add_credentials.png)
+
     * Paste private key
+
       ![add credentials continued - private key](images/scm_add_credentials_private_key.png)
+      
   * Branch:
     ```
     */dev
