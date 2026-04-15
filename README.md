@@ -255,10 +255,12 @@ Create a new **Freestyle Project**:\
 * **Configuration**
   * Discard old builds: Max 5
   * Enable **GitHub Project** (use HTTPS repo link)
-    * Remove the .git from link:
+    * Remove the `.git` from the link:
+
       ![github https link with .git highlighted](images/repo_https_with_git.png)
 
-    * Replace with '/':
+    * Replace it with `/`:
+
       ![github https .git -> /](images/repo_https_no_git.png)
 
 
