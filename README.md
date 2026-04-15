@@ -268,7 +268,7 @@ Create a new **Freestyle Project**:\
   * Add GitHub SSH private key credentials
     ![jenkins credentials provider - add credentials window](images/scm_add_credentials.png)
     * Paste private key
-    ![add credentials continued - private key](images/scm_add_credentials_private_key.png)
+      ![add credentials continued - private key](images/scm_add_credentials_private_key.png)
   * Branch:
     ```
     */dev
