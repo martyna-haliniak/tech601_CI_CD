@@ -10,7 +10,7 @@ This guide explains how to:
 
 ---
 
-## 1. Create Your GitHub Repository
+## 1. Create GitHub Repository
 
 
 ## 2️. Generate an SSH Key Pair
