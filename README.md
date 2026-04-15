@@ -258,8 +258,8 @@ Create a new **Freestyle Project**:\
     * Remove the .git from link:
     ![github https link with .git highlighted](images/repo_https_with_git.png)
 
-      Replace with '/':
-      ![github https .git -> /](images/repo_https_no_git.png)
+    * Replace with '/':
+    ![github https .git -> /](images/repo_https_no_git.png)
 
 
 * **Source Code Management**
@@ -268,7 +268,7 @@ Create a new **Freestyle Project**:\
   * Add GitHub SSH private key credentials
     ![jenkins credentials provider - add credentials window](images/scm_add_credentials.png)
     * Paste private key
-      ![add credentials continued - private key](images/scm_add_credentials_private_key.png)
+    ![add credentials continued - private key](images/scm_add_credentials_private_key.png)
   * Branch:
     ```
     */dev
