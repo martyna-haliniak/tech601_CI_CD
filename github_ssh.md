@@ -135,5 +135,3 @@ ssh-add ~/.ssh/tech601-martyna-github-key
 
 After this, Git will use your SSH key automatically for pushes and pulls.
 
-
-tests
