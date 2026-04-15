@@ -256,10 +256,10 @@ Create a new **Freestyle Project**:\
   * Discard old builds: Max 5
   * Enable **GitHub Project** (use HTTPS repo link)
     * Remove the .git from link:
-    ![github https link with .git highlighted](images/repo_https_with_git.png)
+      ![github https link with .git highlighted](images/repo_https_with_git.png)
 
     * Replace with '/':
-    ![github https .git -> /](images/repo_https_no_git.png)
+      ![github https .git -> /](images/repo_https_no_git.png)
 
 
 * **Source Code Management**
@@ -268,7 +268,7 @@ Create a new **Freestyle Project**:\
   * Add GitHub SSH private key credentials
     ![jenkins credentials provider - add credentials window](images/scm_add_credentials.png)
     * Paste private key
-    ![add credentials continued - private key](images/scm_add_credentials_private_key.png)
+      ![add credentials continued - private key](images/scm_add_credentials_private_key.png)
   * Branch:
     ```
     */dev
@@ -485,5 +485,5 @@ This triggers **Job 1** → **Job 2** → **Job 3** (if each passes). The change
 
 
 ## Cleanup 
-Before stopping server 1 jenkins instance, delete EC2 agents from jenkins UI (will show up as an unnamed running instance on aws)
+Before stopping server 1 jenkins instance, delete EC2 agents from jenkins UI (these will show up as unnamed running instances on aws).
 
